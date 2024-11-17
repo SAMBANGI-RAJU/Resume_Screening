@@ -5,3 +5,5 @@ numpy
 groq
 sentence_transformers
 python-docx
+fastapi
+uvicorn

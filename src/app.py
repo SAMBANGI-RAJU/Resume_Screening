@@ -5,7 +5,7 @@ from client import generate_summary
 
 
 # Streamlit web app
-st.title("AI-Powered Resume Screening Tool with RAG")
+st.title("AI-Powered Resume Screening Tool with Groq")
 st.write("Upload resumes and enter required skills to find top candidates.")
 
 uploaded_files = st.file_uploader(
@@ -13,6 +13,10 @@ uploaded_files = st.file_uploader(
 )
 skills = st.text_input("Enter required skills (separated by commas)").split(",")
 skills = [skill.strip() for skill in skills if skill.strip()]
+
+k = st.text_input("Enter the Number of resumes :")
+
+api = st.text_input("Enter the Groq's API KEY:")
 
 if st.button("Run Screening"):
     if not uploaded_files or not skills:
@@ -34,8 +38,8 @@ if st.button("Run Screening"):
                     st.error(f"Error processing {uploaded_file.name}: {e}")
 
         if resumes:
-            relevant_resumes = filter_resumes_by_skills(resumes, skills)
-            summary = generate_summary(relevant_resumes, skills)
+            relevant_resumes = filter_resumes_by_skills(resumes, skills, int(k))
+            summary = generate_summary(relevant_resumes, skills, api)
 
             st.subheader("Top Candidates Names")
             st.text_area("Candidates", summary, height=300)
