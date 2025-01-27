@@ -37,4 +37,5 @@ def filter_resumes_by_skills(resumes, skills, top_k):
     top_indices = np.argsort(similarity_scores.numpy())[-top_k - 1 :][::-1]
 
     relevant_resumes = [resumes[idx] for idx in top_indices]
-    return relevant_resumes
+    # print(top_indices)
+    return relevant_resumes,similarity_scores,list(top_indices)
